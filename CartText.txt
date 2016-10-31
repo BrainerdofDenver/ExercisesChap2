@@ -1,0 +1,103 @@
+/*
+The BoxCart class is my version of a linked list.
+to be implemented in further exercises
+*/
+public class BoxCart{
+
+//CLASS VARIABLES
+   private int DMA;
+   private String re;
+   private String st;
+   
+   public BoxCart Next = null;
+   public BoxCart Prev = null;
+   public static BoxCart TempCart;//For saving a cart when needed
+   
+//CLASS CONSTRUCTOR   
+   public BoxCart(int DMA, String re, String st,BoxCart Next,BoxCart Prev){
+      this.DMA = DMA;
+      this.re = re;
+      this.st = st;
+      this.Next = Next;
+      this.Prev = Prev;
+   }
+//CLASS ACCESSORS
+   public int getDMA(){
+      return DMA;
+   }
+   public String getRegion(){
+      return re;
+   }
+   public String getState(){
+      return st;
+   }
+//CLASS MUTATORS
+   public void setDMA(int A){
+      DMA = A;
+   }
+   public void setRegion(String A){
+      re = A;
+   }
+   public void setState(String A){
+      st = A;
+   }
+//CLASS METHODS
+   public boolean compareDMA(int A){//Compares DMA value
+      int comp = A;
+      if (DMA <= comp) return false;
+      else return true;
+   }
+   public boolean compareRegion(String A){//Compares Region value
+      String comp = A;
+      int c = re.compareToIgnoreCase(comp);
+      if (c <= 0) return false;
+      else return true;
+   }
+   public boolean compareState(String A){//Compares State value
+      String comp = A;
+      int c = st.compareToIgnoreCase(comp);
+      if (c <= 0) return false;
+      else return true;
+   }
+   
+   public void removeCart(){//Removes links from the cart
+        BoxCart tempCart;
+        while(Prev != null){
+        tempCart = Prev;
+        tempCart.Next = Next;
+            while(Next != null){
+            tempCart = Next;
+            tempCart.Prev = Prev;
+            Prev = null;
+            Next = null;
+            }
+        }
+        while(Next != null){
+        tempCart = Next;
+        tempCart.Prev = Prev;
+            while(Prev != null){
+            tempCart = Prev;
+            tempCart.Next = Next;
+            Prev = null;
+            Next = null;
+            }
+        }
+   }
+   
+   public static BoxCart saveCart(BoxCart Cart){//Global method to save a given cart to temp
+      if(TempCart == null){ 
+         TempCart = new BoxCart(Cart.getDMA(),Cart.getRegion(),Cart.getState(),Cart.Next,Cart.Prev);
+      }
+      else{
+         TempCart.setDMA(Cart.getDMA());
+         TempCart.setRegion(Cart.getRegion());
+         TempCart.setState(Cart.getState());
+         TempCart.Next = Cart.Next;
+         TempCart.Prev = Cart.Prev;
+      }
+      return TempCart;
+   }
+   
+   
+   
+}
