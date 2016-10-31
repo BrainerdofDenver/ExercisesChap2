@@ -1,0 +1,95 @@
+import java.math.*;
+
+/*
+   This object class was created to produce an array
+   of a given size consisting of double values to later be
+   implemented in a sort
+*/
+
+public class RndArray{
+//-------Class fields-------
+   private int size;
+   private double[] Darray;
+   private double n;
+//-------Constructor--------
+   public RndArray(int size){
+      this.size = size;
+      }
+//-------Class methods------      
+   public double[] getDarray(){ //returns a double[size]
+      Darray = new double[size];
+      for(int i = 0; i <= size - 1; i++){
+         n = Math.random()*10;
+         Darray[i] = n;
+         }
+      return Darray;
+      }
+      
+   public int getSize(){ //returns the given size
+      return size;
+   }
+   public void setSize(int size){//mutator method on size
+      this.size = size;
+   }
+}
+
+/*
+HSortedTest is a alteration of the shellsort code found on pg.
+259 of Sedgewick & Wayne's text book: Algorithms, 2011.
+It's objective is to prove that the h-sort method is a small constant
+as the array increases in size
+*/
+public class HSortedTest{
+   public static void main(String[] args){
+         
+         RndArray arrayGen = new RndArray(100);// Object to genorate random double arrays
+         
+         double[] rAry1 = arrayGen.getDarray();
+         arrayGen.setSize(arrayGen.getSize()*10);
+         double[] rAry2 = arrayGen.getDarray();
+         arrayGen.setSize(arrayGen.getSize()*10);
+         double[] rAry3 = arrayGen.getDarray();
+         arrayGen.setSize(arrayGen.getSize()*10);
+         double[] rAry4 = arrayGen.getDarray();
+         
+         System.out.println("Array 1 of size 100:");
+         Hsorted(rAry1);
+         System.out.println("Array 2 of size 1000:");
+         Hsorted(rAry2);
+         System.out.println("Array 3 of size 10000:");
+         Hsorted(rAry3);
+         System.out.println("Array 4 of size 100000:");
+         Hsorted(rAry4);
+
+         /*   
+         int op = 0;
+         
+         for (int i = 0; i < 5;i++){Hsorted(rAry[i]);}
+         */
+         }
+         public static void Hsorted(double[] a){
+         double[] hSort = a;
+         int countH = 0;
+         int N = a.length;
+         int h = 1;
+         while (h < N/3){
+            h = 3*h+1;
+            countH++;
+            System.out.println("h's position is at: " + h +
+                                 ", and has incremented " + countH + " times.");
+         }
+         
+/*the sorting algorithm itself is not necissary in showing the constancy of h
+         while (h >= 1)
+         { // h-sort the array
+            for (int i = h; i < N; i++)
+            { // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h]...
+               for (int j = i; j >= h && less(a[j], a[j-h]; j -= h){
+                  exch(a, j, j-h);
+               }
+               h = h/3;
+            }
+         }
+*/
+   }
+}
